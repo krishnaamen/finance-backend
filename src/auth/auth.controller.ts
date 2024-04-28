@@ -14,12 +14,14 @@ export class AuthController {
 
   @Post('sign-up')
   async signUp(@Body() registerUserDto: RegisterUserDto) {
+    console.log('registerUserDto', registerUserDto);
     return this.usersService.create(registerUserDto);
   }
 
   @Public()
   @Post('sign-in')
   async signIn(@Body() logInDto: LogInDto) {
+    console.log('logInDto', logInDto);
     return this.authService.signIn(logInDto);
   }
 }

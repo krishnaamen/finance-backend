@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Body,
+  Request,
   Param,
   Delete,
   Put,
@@ -15,9 +16,24 @@ import { UpdateEntryDto } from './dto/update-entry.dto';
 export class EntriesController {
   constructor(private readonly entriesService: EntriesService) {}
 
+  /*
   @Post()
   create(@Body() createEntryDto: CreateEntryDto) {
     return this.entriesService.create(createEntryDto);
+  }
+*/
+
+  @Post()
+  async create(@Request() req, @Body() createEntryDto: CreateEntryDto) {
+    const loggedInUser = req.user;
+    console.log('logged in user', loggedInUser);
+
+    const display_url = await this.entriesService.saveImage(
+      createEntryDto.photo.base64,
+    );
+    createEntryDto.photo = display_url; //just save the url to the image in our database.
+
+    return this.entriesService.create(createEntryDto, loggedInUser);
   }
 
   @Get()

@@ -20,11 +20,17 @@ export class UsersService {
   }
 
   async create(registerUserDto: RegisterUserDto): Promise<User> {
+    console.log('registerUserDto is there', registerUserDto);
     const { firstName, lastName, birthDate, email, username, password } =
       registerUserDto;
 
     const salt = await bcrypt.genSalt();
+    console.log('salt is there', salt);
+    console.log('password is there', password);
+
+    
     const hashedPassword = await bcrypt.hash(password, salt);
+    console.log('hashedPassword is there  ', hashedPassword);
 
     const user = new User();
     user.firstName = firstName;
@@ -33,7 +39,9 @@ export class UsersService {
     user.email = email;
     user.username = username;
     user.password = hashedPassword;
+    user.role = Role.User;
 
+    console.log('user from user service', user);
     return this.userRepository.save(user);
   }
 
