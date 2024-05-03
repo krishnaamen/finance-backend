@@ -29,9 +29,7 @@ export class CreateEntryDto {
   description: string;
 
   category: Category;
-
   photo: any;
-
   user: User;
 
   constructor(
@@ -41,7 +39,8 @@ export class CreateEntryDto {
     name: string,
     descripiton: string,
     category: Category,
-    photo?: any,
+    photo: any,
+    user: User,
   ) {
     this.amount = amount;
     this.date = date;
@@ -50,5 +49,6 @@ export class CreateEntryDto {
     this.description = descripiton;
     this.category = category;
     this.photo = photo;
+    this.user = user;
   }
 }

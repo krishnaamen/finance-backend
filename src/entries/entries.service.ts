@@ -38,11 +38,14 @@ export class EntriesService {
 
   create(createEntryDto: CreateEntryDto, user: User) {
     createEntryDto.user = user;
+    console.log('createEntryDto', createEntryDto);
     return this.entryRepository.save(createEntryDto);
   }
 
-  findAll() {
-    return this.entryRepository.find();
+  findAll(user: User) {
+    return this.entryRepository.find({
+      where: { user: { id: user.id } },
+    });
   }
 
   findOne(id: number) {

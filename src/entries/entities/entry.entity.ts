@@ -17,9 +17,6 @@ export class Entry {
   @Column()
   date: Date;
 
-  @Column()
-  photo: string;
-
   @ManyToOne(() => User, (user) => user.entries, {
     eager: true,
   })

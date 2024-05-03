@@ -27,8 +27,8 @@ export class AuthService {
     if (!passwordIsValid) {
       throw new UnauthorizedException('Invalid username or password');
     }
-    console.log('hit2');
-    const payload = { sub: user.id, username: user.username };
+    console.log('user.id auth service', user.id);
+    const payload = { id: user.id, username: user.username };
     const accessToken = await this.jwtService.signAsync(payload);
     console.log(accessToken);
     return { access_token: accessToken };
